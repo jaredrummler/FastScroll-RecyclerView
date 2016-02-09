@@ -250,7 +250,7 @@ public class FastScrollBar {
   /**
    * Animates the width and color of the scrollbar.
    */
-  private void animateScrollbar(boolean isScrolling) {
+  protected void animateScrollbar(boolean isScrolling) {
     if (scrollbarAnimator != null) {
       scrollbarAnimator.cancel();
     }

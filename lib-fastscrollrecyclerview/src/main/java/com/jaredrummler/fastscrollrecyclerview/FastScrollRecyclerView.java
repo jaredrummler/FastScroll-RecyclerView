@@ -44,7 +44,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
   private final Rect backgroundPadding = new Rect();
   private FastScrollBar fastScrollBar;
   private float deltaThreshold;
-  private int dy = 0; // Keeps the last known scrolling delta/velocity along y-axis.
+  private int lastDy = 0; // Keeps the last known scrolling delta/velocity along y-axis.
   private int downX;
   private int downY;
   private int lastY;
@@ -61,8 +61,27 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     super(context, attrs, defStyleAttr);
     deltaThreshold = getResources().getDisplayMetrics().density * SCROLL_DELTA_THRESHOLD_DP;
     fastScrollBar = new FastScrollBar(this, attrs);
-    ScrollListener listener = new ScrollListener();
-    setOnScrollListener(listener);
+    fastScrollBar.setDetachThumbOnFastScroll();
+    addOnScrollListener(new OnScrollListener() {
+
+      @Override public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        switch (newState) {
+          case SCROLL_STATE_DRAGGING:
+            fastScrollBar.animateScrollbar(true);
+            break;
+          case SCROLL_STATE_IDLE:
+            if (!fastScrollBar.isDraggingThumb()) {
+              fastScrollBar.animateScrollbar(false);
+            }
+            break;
+        }
+      }
+
+      @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        lastDy = dy;
+        onUpdateScrollbar(dy);
+      }
+    });
   }
 
   public void reset() {
@@ -126,7 +145,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
    */
   protected boolean shouldStopScroll(MotionEvent ev) {
     if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-      if ((Math.abs(dy) < deltaThreshold && getScrollState() != RecyclerView.SCROLL_STATE_IDLE)) {
+      if ((Math.abs(lastDy) < deltaThreshold && getScrollState() != RecyclerView.SCROLL_STATE_IDLE)) {
         // now the touch events are being passed to the {@link WidgetCell} until the
         // touch sequence goes over the touch slop.
         return true;
@@ -335,19 +354,6 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
   public interface SectionedAdapter {
 
     @NonNull String getSectionName(int position);
-  }
-
-  private class ScrollListener extends OnScrollListener {
-
-    public ScrollListener() {
-      // Do nothing
-    }
-
-    @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-      FastScrollRecyclerView.this.dy = dy;
-
-      onUpdateScrollbar(dy);
-    }
   }
 
   /**
