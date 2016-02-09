@@ -46,6 +46,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
   private final ScrollPositionState scrollPositionState = new ScrollPositionState();
   private final Rect backgroundPadding = new Rect();
   private FastScrollBar fastScrollBar;
+  private boolean fastScrollAlwaysEnabled;
   private float deltaThreshold;
   private int hideDelay;
   private int lastDy; // Keeps the last known scrolling delta/velocity along y-axis.
@@ -73,13 +74,16 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
   public FastScrollRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.FastScrollRecyclerView);
+    fastScrollAlwaysEnabled = ta.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollAlwaysEnabled, false);
     hideDelay = ta.getInt(R.styleable.FastScrollRecyclerView_fastScrollHideDelay, DEFAULT_HIDE_DELAY);
+    ta.recycle();
     deltaThreshold = getResources().getDisplayMetrics().density * SCROLL_DELTA_THRESHOLD_DP;
     fastScrollBar = new FastScrollBar(this, attrs);
     fastScrollBar.setDetachThumbOnFastScroll();
     addOnScrollListener(new OnScrollListener() {
 
       @Override public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        if (fastScrollAlwaysEnabled) return;
         switch (newState) {
           case SCROLL_STATE_DRAGGING:
             removeCallbacks(hide);
@@ -204,9 +208,15 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     return visibleHeight - fastScrollBar.getThumbHeight();
   }
 
+  public boolean isFastScrollAlwaysEnabled() {
+    return fastScrollAlwaysEnabled;
+  }
+
   protected void hideScrollBar() {
-    removeCallbacks(hide);
-    postDelayed(hide, hideDelay);
+    if (!fastScrollAlwaysEnabled) {
+      removeCallbacks(hide);
+      postDelayed(hide, hideDelay);
+    }
   }
 
   public void setThumbActiveColor(@ColorInt int color) {

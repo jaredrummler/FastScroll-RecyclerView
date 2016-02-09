@@ -18,6 +18,7 @@
 
 <resources>
   <declare-styleable name="FastScrollRecyclerView">
+    <attr name="fastScrollAlwaysEnabled" format="boolean"/>
     <attr name="fastScrollThumbCurvatureEnabled" format="boolean"/>
     <attr name="fastScrollThumbActiveColor" format="reference|color"/>
     <attr name="fastScrollThumbInactiveColor" format="reference|color"/>

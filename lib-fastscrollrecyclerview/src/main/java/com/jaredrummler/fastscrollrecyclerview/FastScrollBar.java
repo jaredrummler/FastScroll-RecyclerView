@@ -87,7 +87,6 @@ public class FastScrollBar {
         res.getColor(R.color.fastscroll_thumb_active_color));
     int trackColor = ta.getColor(R.styleable.FastScrollRecyclerView_fastScrollTrackColor, Color.BLACK);
     ta.recycle();
-
     recyclerView = rv;
     fastScrollPopup = new FastScrollPopup(rv, attrs);
     trackPaint = new Paint();
@@ -102,6 +101,9 @@ public class FastScrollBar {
     thumbHeight = res.getDimensionPixelSize(R.dimen.fastscroll_thumb_height);
     thumbCurvature = showThumbCurvature ? thumbMaxWidth - thumbMinWidth : 0;
     touchInset = res.getDimensionPixelSize(R.dimen.fastscroll_thumb_touch_inset);
+    if (rv.isFastScrollAlwaysEnabled()) {
+      animateScrollbar(true);
+    }
   }
 
   public void setDetachThumbOnFastScroll() {
