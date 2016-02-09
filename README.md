@@ -68,7 +68,7 @@ or Maven:
 Credits
 -------
 
-This library is based on [Google's Launcher3](https://android.googlesource.com/platform/packages/apps/Launcher3/).
+This library is based on [Google's Launcher3](https://android.googlesource.com/platform/packages/apps/Launcher3/) fast scroller.
 
 License
 --------
