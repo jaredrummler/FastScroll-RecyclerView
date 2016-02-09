@@ -15,13 +15,12 @@ Add the view to your layout:
     android:id="@+id/recycler"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:fastScrollHideDelay="600"
     app:fastScrollAlwaysEnabled="false"
     app:fastScrollPopupBackgroundColor="?attr/colorAccent"
-    app:fastScrollPopupTextColor="?attr/colorButtonNormal"
+    app:fastScrollPopupTextColor="@android:color/white"
     app:fastScrollThumbActiveColor="?attr/colorAccent"
     app:fastScrollThumbInactiveColor="?attr/colorAccent"/>
 ```
