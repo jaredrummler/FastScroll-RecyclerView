@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+<g id="icon_x5F_bg">
+	<g id="shape">
+		<g>
+			<defs>
+				<path id="SVGID_1_" d="M445.5,481H66.5C47,481,31,465,31,445.5V66.5C31,47,47,31,66.5,31h378.9C465,31,481,47,481,66.5v378.9
+					C481,465,465,481,445.5,481z"/>
+			</defs>
+			<clipPath id="SVGID_2_">
+				<use xlink:href="#SVGID_1_"  overflow="visible"/>
+			</clipPath>
+			<rect x="31" y="31" clip-path="url(#SVGID_2_)" fill="#41A4C4" width="450" height="450"/>
+		</g>
+		<g>
+			<defs>
+				<path id="SVGID_3_" d="M445.5,481H66.5C47,481,31,465,31,445.5V66.5C31,47,47,31,66.5,31h378.9C465,31,481,47,481,66.5v378.9
+					C481,465,465,481,445.5,481z"/>
+			</defs>
+			<clipPath id="SVGID_4_">
+				<use xlink:href="#SVGID_3_"  overflow="visible"/>
+			</clipPath>
+			<path clip-path="url(#SVGID_4_)" fill="#FFFFFF" fill-opacity="0.2" d="M445.5,31H66.5C47,31,31,47,31,66.5v3
+				C31,49.9,47,34,66.5,34h378.9c19.5,0,35.5,16,35.5,35.5v-3C481,47,465,31,445.5,31z"/>
+		</g>
+		<g>
+			<defs>
+				<path id="SVGID_5_" d="M445.5,481H66.5C47,481,31,465,31,445.5V66.5C31,47,47,31,66.5,31h378.9C465,31,481,47,481,66.5v378.9
+					C481,465,465,481,445.5,481z"/>
+			</defs>
+			<clipPath id="SVGID_6_">
+				<use xlink:href="#SVGID_5_"  overflow="visible"/>
+			</clipPath>
+			<path clip-path="url(#SVGID_6_)" fill="#3F2723" fill-opacity="0.2" d="M445.5,478H66.5C47,478,31,462.1,31,442.5v3
+				C31,465,47,481,66.5,481h378.9c19.5,0,35.5-16,35.5-35.5v-3C481,462.1,465,478,445.5,478z"/>
+		</g>
+	</g>
+	
+		<radialGradient id="shadow_1_" cx="43.6429" cy="470.1925" r="603.5178" gradientTransform="matrix(1 0 0 -1 0 514)" gradientUnits="userSpaceOnUse">
+		<stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:0.1"/>
+		<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0"/>
+	</radialGradient>
+	<path id="shadow" fill="url(#shadow_1_)" d="M445.5,481H66.5C47,481,31,465,31,445.5V66.5C31,47,47,31,66.5,31h378.9
+		C465,31,481,47,481,66.5v378.9C481,465,465,481,445.5,481z"/>
+</g>
+<path id="hand" fill="#FFFFFF" d="M236.5,135.5c0-7.9,6.4-14.4,14.4-14.4c7.9,0,14.4,6.4,14.4,14.4v64.3l17.4,1.9l71.1,31.7
+	c7.2,2.9,12.2,10.5,12.2,19.3v62.7c0,11.5-10.5,21.6-21.6,21.6h-93.5c-5.6,0-10.6-2.3-14.4-6.2L166,270.3l10.6-11.1
+	c2.7-2.9,6.5-4.6,10.6-4.6l3.2,0.4l46,24.3V135.5 M366,390.9H250.9v-43.2H366V390.9z"/>
+<g id="scroll">
+	<polygon id="arrow_x5F_down" fill="#FFFFFF" points="221.6,195.4 181.6,235.4 141.6,195.4 148.8,188.3 176.5,216 176.5,167.1 
+		186.6,167.1 186.6,216 214.4,188.3 	"/>
+	<polygon id="arrow_x5F_up" fill="#FFFFFF" points="221.6,119.1 214.4,126.2 186.6,98.5 186.6,147.4 176.5,147.4 176.5,98.5 
+		148.8,126.2 141.6,119.1 181.6,79.1 	"/>
+</g>
+</svg>
