@@ -18,6 +18,7 @@
 package com.jaredrummler.fastscrollrecyclerview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.support.annotation.ColorInt;
@@ -40,15 +41,26 @@ import android.view.View;
 public class FastScrollRecyclerView extends RecyclerView implements RecyclerView.OnItemTouchListener {
 
   private static final int SCROLL_DELTA_THRESHOLD_DP = 4;
+  private static final int DEFAULT_HIDE_DELAY = 1000;
 
   private final ScrollPositionState scrollPositionState = new ScrollPositionState();
   private final Rect backgroundPadding = new Rect();
   private FastScrollBar fastScrollBar;
   private float deltaThreshold;
-  private int lastDy = 0; // Keeps the last known scrolling delta/velocity along y-axis.
+  private int hideDelay;
+  private int lastDy; // Keeps the last known scrolling delta/velocity along y-axis.
   private int downX;
   private int downY;
   private int lastY;
+
+  private final Runnable hide = new Runnable() {
+
+    @Override public void run() {
+      if (!fastScrollBar.isDraggingThumb()) {
+        fastScrollBar.animateScrollbar(false);
+      }
+    }
+  };
 
   public FastScrollRecyclerView(Context context) {
     this(context, null);
@@ -60,6 +72,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
   public FastScrollRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
+    TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.FastScrollRecyclerView);
+    hideDelay = ta.getInt(R.styleable.FastScrollRecyclerView_fastScrollHideDelay, DEFAULT_HIDE_DELAY);
     deltaThreshold = getResources().getDisplayMetrics().density * SCROLL_DELTA_THRESHOLD_DP;
     fastScrollBar = new FastScrollBar(this, attrs);
     fastScrollBar.setDetachThumbOnFastScroll();
@@ -68,12 +82,11 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
       @Override public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         switch (newState) {
           case SCROLL_STATE_DRAGGING:
+            removeCallbacks(hide);
             fastScrollBar.animateScrollbar(true);
             break;
           case SCROLL_STATE_IDLE:
-            if (!fastScrollBar.isDraggingThumb()) {
-              fastScrollBar.animateScrollbar(false);
-            }
+            hideScrollBar();
             break;
         }
       }
@@ -189,6 +202,11 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
   protected int getAvailableScrollBarHeight() {
     int visibleHeight = getHeight() - backgroundPadding.top - backgroundPadding.bottom;
     return visibleHeight - fastScrollBar.getThumbHeight();
+  }
+
+  protected void hideScrollBar() {
+    removeCallbacks(hide);
+    postDelayed(hide, hideDelay);
   }
 
   public void setThumbActiveColor(@ColorInt int color) {

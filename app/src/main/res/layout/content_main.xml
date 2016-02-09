@@ -11,5 +11,6 @@
     app:fastScrollThumbInactiveColor="?attr/colorAccent"
     app:fastScrollPopupBackgroundColor="?attr/colorAccent"
     app:fastScrollPopupTextColor="?attr/colorButtonNormal"
+    app:fastScrollHideDelay="600"
     tools:context="com.jaredrummler.fastscrollrecyclerview.sample.MainActivity"
     tools:showIn="@layout/activity_main"/>

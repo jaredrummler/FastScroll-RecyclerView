@@ -255,7 +255,7 @@ public class FastScrollBar {
         if (isDragging) {
           isDragging = false;
           fastScrollPopup.animateVisibility(false);
-          animateScrollbar(false);
+          recyclerView.hideScrollBar();
         }
         break;
     }
