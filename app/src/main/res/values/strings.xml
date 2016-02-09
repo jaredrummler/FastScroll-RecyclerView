@@ -17,7 +17,7 @@
 
 <resources>
   <string name="app_name">FastScroll RecyclerView</string>
-  <string name="action_settings">Settings</string>
+  <string name="action_github">Github</string>
 
   <string-array name="countries_array">
     <item>Afghanistan</item>
