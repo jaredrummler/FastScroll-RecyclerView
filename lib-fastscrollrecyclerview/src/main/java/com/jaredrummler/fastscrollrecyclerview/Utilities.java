@@ -23,17 +23,6 @@ import android.view.View;
 
 final class Utilities {
 
-  /**
-   * This method converts dp unit to equivalent device specific value in pixels.
-   *
-   * @param dp
-   *     A value in dp (Device independent pixels) which will be converted to pixels.
-   * @return an int value to represent Pixels equivalent to dp according to device
-   */
-  static int dpToPx(Resources res, float dp) {
-    return Math.round(dp * res.getDisplayMetrics().density);
-  }
-
   static boolean isRtl(Resources res) {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 &&
         res.getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;

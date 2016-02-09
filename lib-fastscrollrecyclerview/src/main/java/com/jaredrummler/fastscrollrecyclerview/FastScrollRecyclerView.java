@@ -235,6 +235,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     fastScrollBar.setPopupTextColor(color);
   }
 
+  public FastScrollBar getFastScrollBar() {
+    return fastScrollBar;
+  }
+
   @Override protected void dispatchDraw(Canvas canvas) {
     super.dispatchDraw(canvas);
     onUpdateScrollbar(0);
@@ -266,8 +270,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     // padding)
     int scrollY = getPaddingTop() +
         (scrollPosState.rowIndex * scrollPosState.rowHeight) - scrollPosState.rowTopOffset;
-    int scrollBarY = backgroundPadding.top +
-        (int) (((float) scrollY / availableScrollHeight) * availableScrollBarHeight);
+    int scrollBarY =
+        backgroundPadding.top + (int) (((float) scrollY / availableScrollHeight) * availableScrollBarHeight);
 
     // Calculate the position and size of the scroll bar
     int scrollBarX;
@@ -382,8 +386,16 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     stateOut.rowHeight = child.getHeight();
   }
 
+  /**
+   * Iterface to implement in your {@link RecyclerView.Adapter} to show a popup next to the scroller
+   */
   public interface SectionedAdapter {
 
+    /**
+     * @param position
+     *     the item position
+     * @return the section name for this item
+     */
     @NonNull String getSectionName(int position);
   }
 

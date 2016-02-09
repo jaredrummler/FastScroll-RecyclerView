@@ -75,7 +75,7 @@ public class FastScrollPopup {
   /**
    * Sets the section name.
    */
-  public void setSectionName(String sectionName) {
+  protected void setSectionName(String sectionName) {
     if (!sectionName.equals(this.sectionName)) {
       this.sectionName = sectionName;
       textPaint.getTextBounds(sectionName, 0, sectionName.length(), textBounds);
@@ -89,7 +89,7 @@ public class FastScrollPopup {
    *
    * @return the invalidation rect for this update.
    */
-  public Rect updateFastScrollerBounds(FastScrollRecyclerView rv, int lastTouchY) {
+  protected Rect updateFastScrollerBounds(FastScrollRecyclerView rv, int lastTouchY) {
     invalidateRect.set(backgroundBounds);
 
     if (isVisible()) {
@@ -156,7 +156,7 @@ public class FastScrollPopup {
     return originalBackgroundSize;
   }
 
-  public void draw(Canvas c) {
+  protected void draw(Canvas c) {
     if (isVisible()) {
       // Draw the fast scroller popup
       int restoreCount = c.save(Canvas.MATRIX_SAVE_FLAG);

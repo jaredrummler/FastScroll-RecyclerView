@@ -118,12 +118,12 @@ public class FastScrollBar {
     if (thumbOffset.x == x && thumbOffset.y == y) {
       return;
     }
-    invalidateRect.set(thumbOffset.x - thumbCurvature, thumbOffset.y,
-        thumbOffset.x + thumbWidth, thumbOffset.y + thumbHeight);
+    invalidateRect
+        .set(thumbOffset.x - thumbCurvature, thumbOffset.y, thumbOffset.x + thumbWidth, thumbOffset.y + thumbHeight);
     thumbOffset.set(x, y);
     updateThumbPath();
-    invalidateRect.union(thumbOffset.x - thumbCurvature, thumbOffset.y,
-        thumbOffset.x + thumbWidth, thumbOffset.y + thumbHeight);
+    invalidateRect
+        .union(thumbOffset.x - thumbCurvature, thumbOffset.y, thumbOffset.x + thumbWidth, thumbOffset.y + thumbHeight);
     recyclerView.invalidate(invalidateRect);
   }
 
@@ -133,12 +133,12 @@ public class FastScrollBar {
 
   // Setter/getter for the thumb bar width for animations
   public void setThumbWidth(int width) {
-    invalidateRect.set(thumbOffset.x - thumbCurvature, thumbOffset.y,
-        thumbOffset.x + thumbWidth, thumbOffset.y + thumbHeight);
+    invalidateRect
+        .set(thumbOffset.x - thumbCurvature, thumbOffset.y, thumbOffset.x + thumbWidth, thumbOffset.y + thumbHeight);
     thumbWidth = width;
     updateThumbPath();
-    invalidateRect.union(thumbOffset.x - thumbCurvature, thumbOffset.y,
-        thumbOffset.x + thumbWidth, thumbOffset.y + thumbHeight);
+    invalidateRect
+        .union(thumbOffset.x - thumbCurvature, thumbOffset.y, thumbOffset.x + thumbWidth, thumbOffset.y + thumbHeight);
     recyclerView.invalidate(invalidateRect);
   }
 
@@ -148,12 +148,10 @@ public class FastScrollBar {
 
   // Setter/getter for the track bar width for animations
   public void setTrackWidth(int width) {
-    invalidateRect.set(thumbOffset.x - thumbCurvature, 0, thumbOffset.x + thumbWidth,
-        recyclerView.getHeight());
+    invalidateRect.set(thumbOffset.x - thumbCurvature, 0, thumbOffset.x + thumbWidth, recyclerView.getHeight());
     trackWidth = width;
     updateThumbPath();
-    invalidateRect.union(thumbOffset.x - thumbCurvature, 0, thumbOffset.x + thumbWidth,
-        recyclerView.getHeight());
+    invalidateRect.union(thumbOffset.x - thumbCurvature, 0, thumbOffset.x + thumbWidth, recyclerView.getHeight());
     recyclerView.invalidate(invalidateRect);
   }
 
@@ -206,11 +204,15 @@ public class FastScrollBar {
     fastScrollPopup.setTextColor(color);
   }
 
+  public FastScrollPopup getFastScrollPopup() {
+    return fastScrollPopup;
+  }
+
   /**
    * Handles the touch event and determines whether to show the fast scroller (or updates it if
    * it is already showing).
    */
-  public void handleTouchEvent(MotionEvent ev, int downX, int downY, int lastY) {
+  protected void handleTouchEvent(MotionEvent ev, int downX, int downY, int lastY) {
     ViewConfiguration config = ViewConfiguration.get(recyclerView.getContext());
 
     int action = ev.getAction();
@@ -241,8 +243,7 @@ public class FastScrollBar {
           int top = recyclerView.getBackgroundPadding().top;
           int bottom = recyclerView.getHeight() - recyclerView.getBackgroundPadding().bottom - thumbHeight;
           float boundedY = (float) Math.max(top, Math.min(bottom, y - touchOffset));
-          String sectionName = recyclerView.scrollToPositionAtProgress((boundedY - top) /
-              (bottom - top));
+          String sectionName = recyclerView.scrollToPositionAtProgress((boundedY - top) / (bottom - top));
           fastScrollPopup.setSectionName(sectionName);
           fastScrollPopup.animateVisibility(!sectionName.isEmpty());
           recyclerView.invalidate(fastScrollPopup.updateFastScrollerBounds(recyclerView, lastY));
@@ -263,7 +264,7 @@ public class FastScrollBar {
     }
   }
 
-  public void draw(Canvas canvas) {
+  protected void draw(Canvas canvas) {
     if (thumbOffset.x < 0 || thumbOffset.y < 0) {
       return;
     }
@@ -293,15 +294,15 @@ public class FastScrollBar {
         isScrolling ? thumbMaxWidth : thumbMinWidth);
     scrollbarAnimator.playTogether(trackWidthAnim, thumbWidthAnim);
     if (thumbActiveColor != thumbInactiveColor) {
-      ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
-          thumbPaint.getColor(), isScrolling ? thumbActiveColor : thumbInactiveColor);
+      ValueAnimator colorAnimation = ValueAnimator
+          .ofObject(new ArgbEvaluator(), thumbPaint.getColor(), isScrolling ? thumbActiveColor : thumbInactiveColor);
       colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
         @Override
         public void onAnimationUpdate(ValueAnimator animator) {
           thumbPaint.setColor((Integer) animator.getAnimatedValue());
-          recyclerView.invalidate(thumbOffset.x, thumbOffset.y, thumbOffset.x + thumbWidth,
-              thumbOffset.y + thumbHeight);
+          recyclerView
+              .invalidate(thumbOffset.x, thumbOffset.y, thumbOffset.x + thumbWidth, thumbOffset.y + thumbHeight);
         }
       });
       scrollbarAnimator.play(colorAnimation);
