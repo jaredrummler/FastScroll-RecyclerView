@@ -22,12 +22,14 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
@@ -68,12 +70,18 @@ public class FastScrollBar {
   private boolean isThumbDetached;
   private boolean canThumbDetach;
   private boolean ignoreDragGesture;
+  private boolean showThumbCurvature;
 
   // This is the offset from the top of the scrollbar when the user first starts touching.
   // To prevent jumping, this offset is applied as the user scrolls.
   private int touchOffset;
 
-  public FastScrollBar(FastScrollRecyclerView rv, Resources res) {
+  public FastScrollBar(FastScrollRecyclerView rv, AttributeSet attrs) {
+    TypedArray ta = rv.getContext().obtainStyledAttributes(attrs, R.styleable.FastScrollRecyclerView);
+    showThumbCurvature = ta.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollThumbCurvatureEnabled, false);
+    ta.recycle();
+
+    Resources res = rv.getResources();
     recyclerView = rv;
     fastScrollPopup = new FastScrollPopup(rv, res);
     trackPaint = new Paint();
@@ -88,7 +96,7 @@ public class FastScrollBar {
     thumbWidth = thumbMinWidth = res.getDimensionPixelSize(R.dimen.fastscroll_thumb_min_width);
     thumbMaxWidth = res.getDimensionPixelSize(R.dimen.fastscroll_thumb_max_width);
     thumbHeight = res.getDimensionPixelSize(R.dimen.fastscroll_thumb_height);
-    thumbCurvature = thumbMaxWidth - thumbMinWidth;
+    thumbCurvature = showThumbCurvature ? thumbMaxWidth - thumbMinWidth : 0;
     touchInset = res.getDimensionPixelSize(R.dimen.fastscroll_thumb_touch_inset);
   }
 
@@ -275,7 +283,7 @@ public class FastScrollBar {
    * Updates the path for the thumb drawable.
    */
   private void updateThumbPath() {
-    thumbCurvature = thumbMaxWidth - thumbWidth;
+    thumbCurvature = showThumbCurvature ? thumbMaxWidth - thumbWidth : 0;
     thumbPath.reset();
     thumbPath.moveTo(thumbOffset.x + thumbWidth, thumbOffset.y);                   // tr
     thumbPath.lineTo(thumbOffset.x + thumbWidth, thumbOffset.y + thumbHeight);     // br

@@ -60,7 +60,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
   public FastScrollRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     deltaThreshold = getResources().getDisplayMetrics().density * SCROLL_DELTA_THRESHOLD_DP;
-    fastScrollBar = new FastScrollBar(this, getResources());
+    fastScrollBar = new FastScrollBar(this, attrs);
     ScrollListener listener = new ScrollListener();
     setOnScrollListener(listener);
   }
