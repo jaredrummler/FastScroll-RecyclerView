@@ -20,6 +20,7 @@ package com.jaredrummler.fastscrollrecyclerview;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -190,18 +191,20 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     return visibleHeight - fastScrollBar.getThumbHeight();
   }
 
-  /**
-   * Returns the track color (ignoring alpha), can be overridden by each subclass.
-   */
-  public int getFastScrollerTrackColor(int defaultTrackColor) {
-    return defaultTrackColor;
+  public void setThumbActiveColor(@ColorInt int color) {
+    fastScrollBar.setThumbActiveColor(color);
   }
 
-  /**
-   * Returns the inactive thumb color, can be overridden by each subclass.
-   */
-  public int getFastScrollerThumbInactiveColor(int defaultInactiveThumbColor) {
-    return defaultInactiveThumbColor;
+  public void setTrackInactiveColor(@ColorInt int color) {
+    fastScrollBar.setThumbInactiveColor(color);
+  }
+
+  public void setPopupBackgroundColor(@ColorInt int color) {
+    fastScrollBar.setPopupBackgroundColor(color);
+  }
+
+  public void setPopupTextColor(@ColorInt int color) {
+    fastScrollBar.setPopupTextColor(color);
   }
 
   @Override protected void dispatchDraw(Canvas canvas) {

@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    RecyclerView recyclerView = (FastScrollRecyclerView) findViewById(R.id.recycler);
+    FastScrollRecyclerView recyclerView = (FastScrollRecyclerView) findViewById(R.id.recycler);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(new RecyclerAdapter(getResources().getStringArray(R.array.countries_array)));
   }

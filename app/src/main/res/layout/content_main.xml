@@ -7,5 +7,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    app:fastScrollThumbActiveColor="?attr/colorAccent"
+    app:fastScrollThumbInactiveColor="?attr/colorAccent"
+    app:fastScrollPopupBackgroundColor="?attr/colorAccent"
+    app:fastScrollPopupTextColor="?attr/colorButtonNormal"
     tools:context="com.jaredrummler.fastscrollrecyclerview.sample.MainActivity"
     tools:showIn="@layout/activity_main"/>

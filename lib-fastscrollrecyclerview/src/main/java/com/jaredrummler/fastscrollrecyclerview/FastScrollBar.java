@@ -29,6 +29,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
@@ -78,17 +79,20 @@ public class FastScrollBar {
 
   public FastScrollBar(FastScrollRecyclerView rv, AttributeSet attrs) {
     TypedArray ta = rv.getContext().obtainStyledAttributes(attrs, R.styleable.FastScrollRecyclerView);
+    Resources res = rv.getResources();
     showThumbCurvature = ta.getBoolean(R.styleable.FastScrollRecyclerView_fastScrollThumbCurvatureEnabled, false);
+    thumbInactiveColor = ta.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbInactiveColor,
+        res.getColor(R.color.fastscroll_thumb_inactive_color));
+    thumbActiveColor = ta.getColor(R.styleable.FastScrollRecyclerView_fastScrollThumbActiveColor,
+        res.getColor(R.color.fastscroll_thumb_active_color));
+    int trackColor = ta.getColor(R.styleable.FastScrollRecyclerView_fastScrollTrackColor, Color.BLACK);
     ta.recycle();
 
-    Resources res = rv.getResources();
     recyclerView = rv;
-    fastScrollPopup = new FastScrollPopup(rv, res);
+    fastScrollPopup = new FastScrollPopup(rv, attrs);
     trackPaint = new Paint();
-    trackPaint.setColor(rv.getFastScrollerTrackColor(Color.BLACK));
+    trackPaint.setColor(trackColor);
     trackPaint.setAlpha(MAX_TRACK_ALPHA);
-    thumbInactiveColor = rv.getFastScrollerThumbInactiveColor(res.getColor(R.color.fastscroll_thumb_inactive_color));
-    thumbActiveColor = res.getColor(R.color.fastscroll_thumb_active_color);
     thumbPaint = new Paint();
     thumbPaint.setAntiAlias(true);
     thumbPaint.setColor(thumbInactiveColor);
@@ -173,6 +177,31 @@ public class FastScrollBar {
 
   public boolean isThumbDetached() {
     return isThumbDetached;
+  }
+
+  public void setThumbActiveColor(@ColorInt int color) {
+    thumbActiveColor = color;
+    thumbPaint.setColor(color);
+    recyclerView.invalidate(invalidateRect);
+  }
+
+  public void setThumbInactiveColor(@ColorInt int color) {
+    thumbInactiveColor = color;
+    thumbPaint.setColor(color);
+    recyclerView.invalidate(invalidateRect);
+  }
+
+  public void setTrackColor(@ColorInt int color) {
+    trackPaint.setColor(color);
+    recyclerView.invalidate(invalidateRect);
+  }
+
+  public void setPopupBackgroundColor(@ColorInt int color) {
+    fastScrollPopup.setBackgroundColor(color);
+  }
+
+  public void setPopupTextColor(@ColorInt int color) {
+    fastScrollPopup.setTextColor(color);
   }
 
   /**

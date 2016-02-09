@@ -20,11 +20,15 @@ package com.jaredrummler.fastscrollrecyclerview;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.util.AttributeSet;
 
 /**
  * The fast scroller popup that shows the section name the list will jump to.
@@ -48,16 +52,24 @@ public class FastScrollPopup {
   private float alpha;
   private boolean visible;
 
-  public FastScrollPopup(FastScrollRecyclerView rv, Resources res) {
-    resources = res;
+  public FastScrollPopup(FastScrollRecyclerView rv, AttributeSet attrs) {
+    TypedArray ta = rv.getContext().obtainStyledAttributes(attrs, R.styleable.FastScrollRecyclerView);
     recyclerView = rv;
-    originalBackgroundSize = res.getDimensionPixelSize(R.dimen.fastscroll_popup_size);
-    background = res.getDrawable(R.drawable.fastscroll_popup_bg);
+    resources = rv.getResources();
+    int bgColor = ta.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupBackgroundColor, Color.TRANSPARENT);
+    int textColor = ta.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupTextColor, Color.WHITE);
+    originalBackgroundSize = resources.getDimensionPixelSize(R.dimen.fastscroll_popup_size);
+    background = resources.getDrawable(R.drawable.fastscroll_popup_bg);
+    if (bgColor != Color.TRANSPARENT) {
+      background = background.mutate();
+      background.setColorFilter(bgColor, PorterDuff.Mode.SRC_IN);
+    }
     background.setBounds(0, 0, originalBackgroundSize, originalBackgroundSize);
     textPaint = new Paint();
-    textPaint.setColor(Color.WHITE);
+    textPaint.setColor(textColor);
     textPaint.setAntiAlias(true);
-    textPaint.setTextSize(res.getDimensionPixelSize(R.dimen.fastscroll_popup_text_size));
+    textPaint.setTextSize(resources.getDimensionPixelSize(R.dimen.fastscroll_popup_text_size));
+    ta.recycle();
   }
 
   /**
@@ -129,6 +141,15 @@ public class FastScrollPopup {
 
   public float getAlpha() {
     return alpha;
+  }
+
+  public void setBackgroundColor(@ColorInt int color) {
+    background = background.mutate();
+    background.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+  }
+
+  public void setTextColor(@ColorInt int color) {
+    textPaint.setColor(color);
   }
 
   public int getHeight() {
