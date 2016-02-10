@@ -2,7 +2,6 @@
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/fastscroll-recyclerview/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/fastscroll-recyclerview) [![License](http://img.shields.io/:license-apache-blue.svg)](LICENSE) [![API](https://img.shields.io/badge/API-11%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=14)
 
-
 ![DEMO GIF](art/demo.gif "DEMO")
 
 Usage
@@ -69,6 +68,7 @@ Credits
 -------
 
 This library is based on [Google's Launcher3](https://android.googlesource.com/platform/packages/apps/Launcher3/) fast scroller.
+Some of the code in this library is from [Tim Malseed's](https://github.com/timusus) project [RecyclerView-FastScroller](https://github.com/timusus/RecyclerView-FastScroll)
 
 License
 --------
