@@ -67,6 +67,7 @@ Credits
 -------
 
 This library is based on [Google's Launcher3](https://android.googlesource.com/platform/packages/apps/Launcher3/) fast scroller.
+
 Some of the code in this library is from [Tim Malseed's](https://github.com/timusus) project [RecyclerView-FastScroller](https://github.com/timusus/RecyclerView-FastScroll)
 
 License
