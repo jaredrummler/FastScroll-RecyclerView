@@ -241,8 +241,11 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     return fastScrollBar;
   }
 
-  @Override protected void dispatchDraw(Canvas canvas) {
-    super.dispatchDraw(canvas);
+  @Override
+  public void draw(Canvas canvas) {
+    super.draw(canvas);
+
+    // Draw the ScrollBar AFTER the ItemDecorations are drawn over
     onUpdateScrollbar(0);
     fastScrollBar.draw(canvas);
   }
