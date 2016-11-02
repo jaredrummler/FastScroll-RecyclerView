@@ -427,8 +427,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
           // Finds how much of the itemView is actually visible, this allows smooth changes of the scrollbar thumb height
           final int visibleHeight = itemHeight
-                  - Math.max(0, paddingBottom - itemView.getTop()) // How much is cut at the top
-                  - Math.max(0, paddingBottom + itemView.getBottom() - height); // How much is cut at the bottom
+                  - Math.max(0, paddingBottom - layoutManager.getDecoratedTop(itemView)) // How much is cut at the top
+                  - Math.max(0, paddingBottom + layoutManager.getDecoratedBottom(itemView) - height); // How much is cut at the bottom
 
           visibleRows += visibleHeight / (float) itemHeight;
         }
