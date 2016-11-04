@@ -274,7 +274,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     // view padding, while the scrollBarY is drawn right up to the background padding (ignoring
     // padding)
     int scrollY = getPaddingTop() +
-            Math.round(((scrollPosState.rowIndex - scrollPosState.rowTopOffset) * scrollPosState.rowHeight));
+        Math.round(((scrollPosState.rowIndex - scrollPosState.rowTopOffset) * scrollPosState.rowHeight));
     int scrollBarY =
         backgroundPadding.top + (int) (((float) scrollY / availableScrollHeight) * availableScrollBarHeight);
 
@@ -410,7 +410,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         final int paddingTop = getPaddingTop();
         final int paddingBottom = getPaddingBottom();
 
-        // How many rows are visible, like 10.5f for 10 rows completelly and one halfway visible
+        // How many rows are visible, like 10.5f for 10 rows completely and one halfway visible
         float visibleRows = 0f;
 
         for (int position = firstVisiblePosition; position <= lastVisiblePosition; position++) {
@@ -425,10 +425,11 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
             continue;
           }
 
-          // Finds how much of the itemView is actually visible, this allows smooth changes of the scrollbar thumb height
+          // Finds how much of the itemView is actually visible.
+          // This allows smooth changes of the scrollbar thumb height
           final int visibleHeight = itemHeight
-                  - Math.max(0, paddingBottom - layoutManager.getDecoratedTop(itemView)) // How much is cut at the top
-                  - Math.max(0, paddingBottom + layoutManager.getDecoratedBottom(itemView) - height); // How much is cut at the bottom
+              - Math.max(0, paddingBottom - layoutManager.getDecoratedTop(itemView)) // How much is cut at the top
+              - Math.max(0, paddingBottom + layoutManager.getDecoratedBottom(itemView) - height); // How much is cut at the bottom
 
           visibleRows += visibleHeight / (float) itemHeight;
         }
