@@ -241,8 +241,11 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     return fastScrollBar;
   }
 
-  @Override protected void dispatchDraw(Canvas canvas) {
-    super.dispatchDraw(canvas);
+  @Override
+  public void draw(Canvas canvas) {
+    super.draw(canvas);
+
+    // Draw the ScrollBar AFTER the ItemDecorations are drawn over
     onUpdateScrollbar(0);
     fastScrollBar.draw(canvas);
   }
@@ -271,7 +274,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     // view padding, while the scrollBarY is drawn right up to the background padding (ignoring
     // padding)
     int scrollY = getPaddingTop() +
-        (scrollPosState.rowIndex * scrollPosState.rowHeight) - scrollPosState.rowTopOffset;
+            Math.round(((scrollPosState.rowIndex - scrollPosState.rowTopOffset) * scrollPosState.rowHeight));
     int scrollBarY =
         backgroundPadding.top + (int) (((float) scrollY / availableScrollHeight) * availableScrollBarHeight);
 
@@ -387,8 +390,54 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     if (getLayoutManager() instanceof GridLayoutManager) {
       stateOut.rowIndex = stateOut.rowIndex / ((GridLayoutManager) getLayoutManager()).getSpanCount();
     }
-    stateOut.rowTopOffset = getLayoutManager().getDecoratedTop(child);
-    stateOut.rowHeight = child.getHeight();
+    stateOut.rowTopOffset = getLayoutManager().getDecoratedTop(child) / (float) child.getHeight();
+    stateOut.rowHeight = calculateRowHeight(child.getHeight());
+  }
+
+  /**
+   * Calculates the row height based on the average of the visible children, to handle scrolling
+   * through children with different heights gracefully
+   */
+  protected int calculateRowHeight(int fallbackHeight) {
+    LayoutManager layoutManager = getLayoutManager();
+
+    if (layoutManager instanceof LinearLayoutManager) {
+      final int firstVisiblePosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
+      final int lastVisiblePosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+
+      if (lastVisiblePosition > firstVisiblePosition) {
+        final int height = getHeight();
+        final int paddingTop = getPaddingTop();
+        final int paddingBottom = getPaddingBottom();
+
+        // How many rows are visible, like 10.5f for 10 rows completelly and one halfway visible
+        float visibleRows = 0f;
+
+        for (int position = firstVisiblePosition; position <= lastVisiblePosition; position++) {
+          ViewHolder viewHolder = findViewHolderForLayoutPosition(position);
+          if (viewHolder == null || viewHolder.itemView == null) {
+            continue;
+          }
+
+          final View itemView = viewHolder.itemView;
+          final int itemHeight = itemView.getHeight();
+          if (itemHeight == 0) {
+            continue;
+          }
+
+          // Finds how much of the itemView is actually visible, this allows smooth changes of the scrollbar thumb height
+          final int visibleHeight = itemHeight
+                  - Math.max(0, paddingBottom - layoutManager.getDecoratedTop(itemView)) // How much is cut at the top
+                  - Math.max(0, paddingBottom + layoutManager.getDecoratedBottom(itemView) - height); // How much is cut at the bottom
+
+          visibleRows += visibleHeight / (float) itemHeight;
+        }
+
+        return Math.round((height - (paddingTop + paddingBottom)) / visibleRows);
+      }
+    }
+
+    return fallbackHeight;
   }
 
   /**
@@ -414,8 +463,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     // The index of the first visible row
     public int rowIndex;
-    // The offset of the first visible row
-    public int rowTopOffset;
+    // The offset of the first visible row, in percentage of the height
+    public float rowTopOffset;
     // The height of a given row (they are currently all the same height)
     public int rowHeight;
   }
