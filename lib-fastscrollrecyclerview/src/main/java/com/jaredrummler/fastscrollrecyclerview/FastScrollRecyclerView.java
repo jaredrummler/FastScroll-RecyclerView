@@ -401,17 +401,9 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
   protected int calculateRowHeight(int fallbackHeight) {
     LayoutManager layoutManager = getLayoutManager();
 
-    if (layoutManager instanceof LinearLayoutManager || layoutManager instanceof GridLayoutManager) {
-      final int firstVisiblePosition;
-      final int lastVisiblePosition;
-
-      if (layoutManager instanceof LinearLayoutManager) {
-        firstVisiblePosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
-        lastVisiblePosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
-      } else {
-        firstVisiblePosition = ((GridLayoutManager) layoutManager).findFirstVisibleItemPosition();
-        lastVisiblePosition = ((GridLayoutManager) layoutManager).findLastVisibleItemPosition();
-      }
+    if (layoutManager instanceof LinearLayoutManager) {
+      final int firstVisiblePosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
+      final int lastVisiblePosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
 
       if (lastVisiblePosition > firstVisiblePosition) {
         final int height = getHeight();
@@ -422,7 +414,12 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         float visibleRows = 0f;
 
         for (int position = firstVisiblePosition; position <= lastVisiblePosition; position++) {
-          final View itemView = findViewHolderForLayoutPosition(position).itemView;
+          ViewHolder viewHolder = findViewHolderForLayoutPosition(position);
+          if (viewHolder == null || viewHolder.itemView == null) {
+            continue;
+          }
+
+          final View itemView = viewHolder.itemView;
           final int itemHeight = itemView.getHeight();
           if (itemHeight == 0) {
             continue;
@@ -436,7 +433,6 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
           visibleRows += visibleHeight / (float) itemHeight;
         }
 
-        System.out.println("ROW HEIGHT: " + Math.round((height - (paddingTop + paddingBottom)) / visibleRows));
         return Math.round((height - (paddingTop + paddingBottom)) / visibleRows);
       }
     }
