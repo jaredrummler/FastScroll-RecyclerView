@@ -18,22 +18,22 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "24.0.3"
 
     defaultConfig {
         minSdkVersion 11
-        targetSdkVersion 23
+        targetSdkVersion 25
         consumerProguardFiles 'proguard-rules.pro'
     }
 }
 
 dependencies {
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
+    compile 'com.android.support:recyclerview-v7:25.0.0'
 }
 
-apply from: '../gradle-mvn-push.gradle'
+apply from: 'gradle-mvn-push.gradle'
 
 afterEvaluate {
     androidJavadocs.classpath += project.android.libraryVariants.toList().first().javaCompile.classpath

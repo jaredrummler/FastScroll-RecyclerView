@@ -48,17 +48,17 @@ private static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapte
 Download
 --------
 
-Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/fastscroll-recyclerview/1.0.0/fastscroll-recyclerview-1.0.0.aar) or grab via Gradle:
+Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/fastscroll-recyclerview/1.0.2/fastscroll-recyclerview-1.0.2.aar) or grab via Gradle:
 
 ```groovy
-compile 'com.jaredrummler:fastscroll-recyclerview:1.0.0'
+compile 'com.jaredrummler:fastscroll-recyclerview:1.0.2'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.jaredrummler</groupId>
   <artifactId>fastscroll-recyclerview</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.2</version>
   <type>aar</type>
 </dependency>
 ```
