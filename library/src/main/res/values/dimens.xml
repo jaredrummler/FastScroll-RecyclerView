@@ -17,7 +17,7 @@
 
 <resources>
 
-  <dimen name="fastscroll_popup_size">72dp</dimen>
+  <dimen name="fastscroll_popup_default_padding">24dp</dimen>
   <dimen name="fastscroll_popup_text_size">48dp</dimen>
   <dimen name="fastscroll_thumb_min_width">0dp</dimen>
   <dimen name="fastscroll_thumb_max_width">9dp</dimen>
