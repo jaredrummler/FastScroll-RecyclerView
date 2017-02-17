@@ -43,10 +43,10 @@ public class FastScrollBar {
   private final Rect invalidateRect = new Rect();
   private final Rect tmpRect = new Rect();
 
-  private final Point thumbOffset = new Point(-1, -1);
+  /*package*/ final Point thumbOffset = new Point(-1, -1);
   private final Path thumbPath = new Path();
 
-  private FastScrollRecyclerView recyclerView;
+  /*package*/ FastScrollRecyclerView recyclerView;
   private FastScrollPopup fastScrollPopup;
 
   private AnimatorSet scrollbarAnimator;
@@ -54,11 +54,11 @@ public class FastScrollBar {
   private int thumbInactiveColor;
   private int thumbActiveColor;
 
-  private Paint thumbPaint;
+  /*package*/ Paint thumbPaint;
   private int thumbMinWidth;
   private int thumbMaxWidth;
-  private int thumbWidth;
-  private int thumbHeight;
+  /*package*/ int thumbWidth;
+  /*package*/ int thumbHeight;
   private int thumbCurvature;
 
   private Paint trackPaint;
