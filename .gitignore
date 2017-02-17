@@ -1,8 +1,49 @@
-*.iml
-.gradle
-/local.properties
+########### Specifies intentionally untracked files to ignore ###########
+
+### Gradle
+.gradle/
+build/
+
+### IntelliJ IDEA
 /.idea
-/build
-fabric.properties
+*.iml
+*.iws
+captures/
+.navigation/
+local.properties
+bin/
+gen/
+out/
+*.apk
+*.ap_
+
+### Android
+*.jks
+*.dex
+
+### Java
+*.class
+hs_err_pid*
+
+### Windows
+Desktop.ini
+Thumbs.db
+ehthumbs.db
+
+### OSX
 .DS_Store
-/captures
+
+### Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+### Logs
+*.log
+
+### Crashlytics
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
