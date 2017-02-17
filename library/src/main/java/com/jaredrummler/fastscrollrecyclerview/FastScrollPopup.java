@@ -59,7 +59,8 @@ public class FastScrollPopup {
     resources = rv.getResources();
     int bgColor = ta.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupBackgroundColor, Color.TRANSPARENT);
     int textColor = ta.getColor(R.styleable.FastScrollRecyclerView_fastScrollPopupTextColor, Color.WHITE);
-    originalBackgroundSize = resources.getDimensionPixelSize(R.dimen.fastscroll_popup_size);
+    float textSize = ta.getDimension(R.styleable.FastScrollRecyclerView_fastScrollTextSize, resources.getDimensionPixelSize(R.dimen.fastscroll_popup_text_size));
+    originalBackgroundSize = (int) textSize + (int) ta.getDimension(R.styleable.FastScrollRecyclerView_fastScrollPopupPadding, resources.getDimensionPixelSize(R.dimen.fastscroll_popup_default_padding));
     background = resources.getDrawable(R.drawable.fastscroll_popup_bg);
     if (bgColor != Color.TRANSPARENT) {
       background = background.mutate();
@@ -69,7 +70,7 @@ public class FastScrollPopup {
     textPaint = new Paint();
     textPaint.setColor(textColor);
     textPaint.setAntiAlias(true);
-    textPaint.setTextSize(resources.getDimensionPixelSize(R.dimen.fastscroll_popup_text_size));
+    textPaint.setTextSize(textSize);
     ta.recycle();
   }
 
