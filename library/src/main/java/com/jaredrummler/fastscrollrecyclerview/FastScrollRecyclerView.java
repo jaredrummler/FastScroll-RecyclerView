@@ -47,16 +47,16 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
   private final ScrollPositionState scrollPositionState = new ScrollPositionState();
   private final Rect backgroundPadding = new Rect();
-  private FastScrollBar fastScrollBar;
-  private boolean fastScrollAlwaysEnabled;
+  /*package*/ FastScrollBar fastScrollBar;
+  /*package*/ boolean fastScrollAlwaysEnabled;
   private float deltaThreshold;
   private int hideDelay;
-  private int lastDy; // Keeps the last known scrolling delta/velocity along y-axis.
+  /*package*/ int lastDy; // Keeps the last known scrolling delta/velocity along y-axis.
   private int downX;
   private int downY;
   private int lastY;
 
-  private final Runnable hide = new Runnable() {
+  final Runnable hide = new Runnable() {
 
     @Override public void run() {
       if (!fastScrollBar.isDraggingThumb()) {

@@ -26,5 +26,7 @@
     <attr name="fastScrollPopupBackgroundColor" format="reference|color"/>
     <attr name="fastScrollPopupTextColor" format="reference|color"/>
     <attr name="fastScrollHideDelay" format="integer"/>
+    <attr name="fastScrollTextSize" format="dimension"/>
+    <attr name="fastScrollPopupPadding" format="dimension"/>
   </declare-styleable>
 </resources>
